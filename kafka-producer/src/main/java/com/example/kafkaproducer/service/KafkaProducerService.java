@@ -1,6 +1,7 @@
 package com.example.kafkaproducer.service;
 
 import com.example.kafkaproducer.model.EventRequest;
+import com.example.kafkaproducer.util.ConvertingObjectStringObject;
 import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.stereotype.Service;
 
@@ -20,5 +21,10 @@ public class KafkaProducerService {
 
     public void sendJsonData(String topic, EventRequest request){
         kafkaJsonTemplate.send(topic,request);
+    }
+
+    public <U> void sendData(String topic,U request){
+        String stringData = ConvertingObjectStringObject.convertObjectToString(request);
+        kafkaStringTemplate.send(topic,stringData);
     }
 }

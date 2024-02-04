@@ -2,6 +2,7 @@ package com.example.kafkaproducer.controller;
 
 
 import com.example.kafkaproducer.model.EventRequest;
+import com.example.kafkaproducer.model.UserRequest;
 import com.example.kafkaproducer.service.KafkaProducerService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
@@ -32,6 +33,20 @@ public class EventController{
     public void sendEventObject(@RequestBody EventRequest request) {
         kafkaProducerService.sendJsonData("event-topic-json", request);
         log.info("Json Data send to the kafka........");
+    }
+
+    @PostMapping("/data")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void sendData(@RequestBody EventRequest request) {
+        kafkaProducerService.sendData("data-topic", request);
+        log.info("Data send to the kafka........");
+    }
+
+    @PostMapping("/user")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void sendUserData(@RequestBody UserRequest request) {
+        kafkaProducerService.sendData("user-topic", request);
+        log.info("User data send to the kafka........");
     }
 
 }
