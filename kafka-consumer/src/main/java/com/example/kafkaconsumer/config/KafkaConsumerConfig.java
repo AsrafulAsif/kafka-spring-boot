@@ -49,12 +49,12 @@ public class KafkaConsumerConfig {
     }
 
     @Bean
-    public ConsumerFactory<String, EventRequest> consumerJsonFactory() {
-        return new DefaultKafkaConsumerFactory<>(consumerJsonConfigs(), new StringDeserializer(), new JsonDeserializer<>(EventRequest.class));
+    public ConsumerFactory<String, Object> consumerJsonFactory() {
+        return new DefaultKafkaConsumerFactory<>(consumerJsonConfigs(), new StringDeserializer(), new JsonDeserializer<>(Object.class));
     }
     @Bean
-    public ConcurrentKafkaListenerContainerFactory<String, EventRequest> kafkaListenerContainerJsonFactory() {
-        ConcurrentKafkaListenerContainerFactory<String, EventRequest> factory = new ConcurrentKafkaListenerContainerFactory<>();
+    public ConcurrentKafkaListenerContainerFactory<String, Object> kafkaListenerContainerJsonFactory() {
+        ConcurrentKafkaListenerContainerFactory<String, Object> factory = new ConcurrentKafkaListenerContainerFactory<>();
         factory.setConsumerFactory(consumerJsonFactory());
         return factory;
     }
