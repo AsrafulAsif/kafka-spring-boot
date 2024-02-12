@@ -8,9 +8,9 @@ import org.springframework.stereotype.Service;
 @Service
 public class KafkaProducerService {
     private final KafkaTemplate<String,String> kafkaStringTemplate;
-    private final KafkaTemplate<String, EventRequest> kafkaJsonTemplate;
+    private final KafkaTemplate<String, Object> kafkaJsonTemplate;
 
-    public KafkaProducerService(KafkaTemplate<String, EventRequest> kafkaJsonTemplate, KafkaTemplate<String, String> kafkaStringTemplate) {
+    public KafkaProducerService(KafkaTemplate<String, Object> kafkaJsonTemplate, KafkaTemplate<String, String> kafkaStringTemplate) {
         this.kafkaJsonTemplate = kafkaJsonTemplate;
         this.kafkaStringTemplate = kafkaStringTemplate;
     }
@@ -19,7 +19,7 @@ public class KafkaProducerService {
         kafkaStringTemplate.send(topic,message);
     }
 
-    public void sendJsonData(String topic, EventRequest request){
+    public void sendJsonData(String topic, Object request){
         kafkaJsonTemplate.send(topic,request);
     }
 
